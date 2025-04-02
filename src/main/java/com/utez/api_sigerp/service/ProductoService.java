@@ -1,5 +1,6 @@
 package com.utez.api_sigerp.service;
 
+import com.utez.api_sigerp.model.Mesa;
 import com.utez.api_sigerp.model.Producto;
 import com.utez.api_sigerp.repository.ProductoRepository;
 import org.springframework.stereotype.Service;
@@ -123,18 +124,15 @@ public class ProductoService {
     }
 
     // Cambiar estado de activo a inactivo
-    public Producto changeEstadoActivo(String id, boolean activo) {
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("❌ Error: El ID del producto no puede estar vacío.");
-        }
-        Optional<Producto> productoOpt = productoRepository.findById(id);
-        if (productoOpt.isEmpty()) {
-            throw new IllegalArgumentException("❌ Error: No se encontró el producto con ID " + id);
+    public Optional<Producto> actualizarEstadoProducto(String id, boolean estado) {
+        Optional<Producto> productoOptional = productoRepository.findById(id);
+
+        if (productoOptional.isPresent()) {
+            Producto producto = productoOptional.get();
+            producto.setEstado(estado);
+            return Optional.of(productoRepository.save(producto));
         }
 
-        Producto productoToUpdate = productoOpt.get();
-        productoToUpdate.setActivo(activo);
-        System.out.println("🔄 Cambiando estado activo del producto con ID: " + id + " a " + activo);
-        return productoRepository.save(productoToUpdate);
+        return Optional.empty();
     }
 }

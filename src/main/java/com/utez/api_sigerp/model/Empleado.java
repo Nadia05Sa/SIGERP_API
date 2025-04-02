@@ -2,7 +2,10 @@ package com.utez.api_sigerp.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Data
 @Document(collection = "empleados")
@@ -11,9 +14,12 @@ public class Empleado {
     private String id;
     private String foto;
     private String nombre;
+    private String apellido;
     private String correo;
     private String contrasena;
-    private Integer rol;
+    private boolean estado;
+    @DBRef
+    private List<Mesa> mesas;
 
     public String getId() {
         return id;
@@ -39,6 +45,14 @@ public class Empleado {
         this.nombre = nombre;
     }
 
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
     public String getCorreo() {
         return correo;
     }
@@ -55,11 +69,19 @@ public class Empleado {
         this.contrasena = contrasena;
     }
 
-    public Integer getRol() {
-        return rol;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setRol(Integer rol) {
-        this.rol = rol;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public List<Mesa> getMesas() {
+        return mesas;
+    }
+
+    public void setMesas(List<Mesa> mesas) {
+        this.mesas = mesas;
     }
 }

@@ -8,5 +8,4 @@ import java.util.Optional;
 
 public interface ProductoRepository extends MongoRepository<Producto, String> {
     Optional<Producto> findByNombreIgnoreCase(String nombre); // Método más eficiente
-    List<Producto> findByActivo(boolean activo);
 }

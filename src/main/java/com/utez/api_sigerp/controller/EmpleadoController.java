@@ -1,13 +1,14 @@
-
 package com.utez.api_sigerp.controller;
 
 import com.utez.api_sigerp.model.Empleado;
+import com.utez.api_sigerp.model.Mesa;
 import com.utez.api_sigerp.service.EmpleadoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -55,7 +56,7 @@ public class EmpleadoController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
-    @PutMapping("/id/{id}")
+    @PatchMapping("/id/{id}")
     public ResponseEntity<Empleado> updateEmpleado(@PathVariable String id, @RequestBody Empleado empleado) {
         Empleado empleadoUpdated = empleadoService.updateEmpleado(id, empleado);
         return empleadoUpdated == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(empleadoUpdated);
@@ -69,5 +70,25 @@ public class EmpleadoController {
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+
+
+    @PatchMapping("/{id}/estado")
+    public ResponseEntity<Empleado> patchEstadoEmpleado(@PathVariable String id, @RequestBody Map<String, Boolean> estado) {
+        if (!estado.containsKey("estado")) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Empleado> empleadoActualizada = empleadoService.actualizarEstadoEmpleado(id, estado.get("estado"));
+        return empleadoActualizada.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/image/{id}")
+    public ResponseEntity<String> getEmpleadoFoto(@PathVariable String id) {
+        Optional<String> imagen = empleadoService.getEmpleadoFotoById(id);
+        return imagen.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

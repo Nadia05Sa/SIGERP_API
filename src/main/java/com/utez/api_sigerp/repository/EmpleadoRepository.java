@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface EmpleadoRepository extends MongoRepository<Empleado, String> {
     Optional<Empleado> findByCorreoAndContrasena(String correo, String contrasena);
     Optional<Empleado> findByNombreIgnoreCase(String nombre);
+    Optional<String> findFotoById(String id);
 }

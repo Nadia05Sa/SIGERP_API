@@ -16,7 +16,7 @@ public class Producto {
     private Double precio;  // Permite valores nulos
     private String descripcion;
     private String imagen;
-    private Boolean activo;  // Nuevo atributo para indicar si el producto está activo
+    private Boolean estado;  // Nuevo atributo para indicar si el producto está activo
 
     @DBRef
     private List<Categoria> categorias;
@@ -61,12 +61,12 @@ public class Producto {
         this.imagen = imagen;
     }
 
-    public Boolean getActivo() {
-        return activo;
+    public Boolean getEstado() {
+        return estado;
     }
 
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
+    public void setEstado(Boolean activo) {
+        this.estado = activo;
     }
 
     public List<Categoria> getCategorias() {
