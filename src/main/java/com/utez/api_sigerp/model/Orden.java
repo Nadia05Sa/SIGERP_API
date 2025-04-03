@@ -15,6 +15,7 @@ public class Orden {
     private String fecha;
     private String estado;
     private String comentario;
+    private String cantidad;
 
     @DBRef
     private Mesa mesa;
