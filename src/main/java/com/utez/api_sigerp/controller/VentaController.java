@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controlador que expone los endpoints REST para gestionar ventas.
+ */
 @RestController
 @RequestMapping("/api/ventas")
 @CrossOrigin(origins = "*")
 public class VentaController {
-
     @Autowired
     private VentaService ventaService;
 
@@ -27,7 +29,7 @@ public class VentaController {
     }
 
     @PostMapping("/nueva")
-    public ResponseEntity<Venta> crearVenta(@RequestBody Venta venta) {
-        return ResponseEntity.ok(ventaService.guardarVenta(venta));
+    public ResponseEntity<Venta> agregarVenta(@RequestBody Venta venta) {
+        return ResponseEntity.ok(ventaService.agregarVenta(venta));
     }
 }

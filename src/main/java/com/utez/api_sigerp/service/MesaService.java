@@ -48,4 +48,21 @@ public class MesaService {
                 .map(Mesa::getImagen);
     }
 
+    public Optional<Mesa> updateMesa(String id, Mesa nuevaMesa) {
+        Optional<Mesa> mesaExistente = mesaRepository.findById(id);
+        if (mesaExistente.isPresent()) {
+            Mesa mesa = mesaExistente.get();
+            mesa.setCapacidad(nuevaMesa.getCapacidad());
+            mesa.setEstado(nuevaMesa.isEstado());
+            mesa.setImagen(nuevaMesa.getImagen());
+            mesa.setNombre(nuevaMesa.getNombre());
+
+
+            mesaRepository.save(mesa);
+            return Optional.of(mesa);
+        }
+        return Optional.empty();
+    }
+
+
 }

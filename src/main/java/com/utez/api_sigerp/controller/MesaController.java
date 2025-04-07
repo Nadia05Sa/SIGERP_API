@@ -30,9 +30,9 @@ public class MesaController {
         return mesas.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(mesas);
     }
 
-    @GetMapping("/{nombre}")
-    public ResponseEntity<Mesa> getMesaByNombre(@PathVariable String nombre) {
-        Optional<Mesa> mesa = mesaService.getMesaByNombre(nombre);
+    @GetMapping("/{id}")
+    public ResponseEntity<Mesa> getMesaById(@PathVariable String id) {
+        Optional<Mesa> mesa = mesaService.getMesaById(id);
         return mesa.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -51,6 +51,13 @@ public class MesaController {
     public ResponseEntity<String> getMesaImage(@PathVariable String id) {
         Optional<String> imagen = mesaService.getMesaImageById(id);
         return imagen.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Mesa> updateMesa(@PathVariable String id, @RequestBody Mesa mesa) {
+        Optional<Mesa> mesaActualizada = mesaService.updateMesa(id, mesa);
+        return mesaActualizada.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 

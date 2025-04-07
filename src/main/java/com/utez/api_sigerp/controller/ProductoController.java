@@ -62,7 +62,7 @@ public class ProductoController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("{id}")
     public ResponseEntity<Producto> updateEmpleado(@PathVariable String id, @RequestBody Producto producto) {
         Producto productoUpdated = productoService.updateProducto(id, producto);
         return productoUpdated == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(productoUpdated);

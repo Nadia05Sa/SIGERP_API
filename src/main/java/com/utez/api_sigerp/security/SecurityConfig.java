@@ -42,11 +42,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/ws/**", "/topic/**", "/app/**", "/user/**", "/queue/**", "/socket/**", "/sockjs-node/**", "/sockjs/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/empleado", "/api/empleado/{nombre}", "/api/categoria", "/api/categoria/**", "/api/producto", "/api/producto/**", "/api/mesas", "/api/mesas/{nombre}", "/api/mesas/**", "/api/resena", "/api/resena/empleado/", "/api/ordenes", "/api/ordenes/mesa/{mesaId}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/empleado", "/api/empleado/id/{id}", "/api/categoria", "/api/categoria/**", "/api/producto", "/api/producto/**", "/api/mesas", "/api/mesas/{nombre}", "/api/mesas/**", "/api/resena", "/api/resena/empleado/", "/api/ordenes", "/api/ordenes/mesa/{mesaId}").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/empleado/{nombre}").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/categoria", "/api/resena", "/api/ordenes", "/api/ordenes/{id}").permitAll()
-                        .requestMatchers(HttpMethod.PATCH, "/api/mesas/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/mesas/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/categoria", "/api/resena", "/api/ordenes", "/api/ordenes/{id}", "/api/ventas/nueva").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/api/mesas/**","/api/producto/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/mesas/**", "/api/ventas/todas").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
