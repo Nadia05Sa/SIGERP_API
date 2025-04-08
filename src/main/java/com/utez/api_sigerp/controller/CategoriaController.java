@@ -1,11 +1,13 @@
 package com.utez.api_sigerp.controller;
 
 import com.utez.api_sigerp.model.Categoria;
+import com.utez.api_sigerp.model.Mesa;
 import com.utez.api_sigerp.service.CategoriaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -49,6 +51,17 @@ public class CategoriaController {
     public ResponseEntity<String> getCategoriaImage(@PathVariable String id) {
         Optional<String> imagen = categoriaService.getCategoriaImageById(id);
         return imagen.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{id}/estado")
+    public ResponseEntity<Categoria> actualizarEstadoCategoria(@PathVariable String id, @RequestBody Map<String, Boolean> estado) {
+        if (!estado.containsKey("estado")) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Categoria> categoriaActualizada = categoriaService.actualizarEstadoCategoria(id, estado.get("estado"));
+        return categoriaActualizada.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

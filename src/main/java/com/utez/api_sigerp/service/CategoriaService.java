@@ -1,6 +1,7 @@
 package com.utez.api_sigerp.service;
 
 import com.utez.api_sigerp.model.Categoria;
+import com.utez.api_sigerp.model.Mesa;
 import com.utez.api_sigerp.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
 
@@ -40,4 +41,17 @@ public class CategoriaService {
         return categoriaRepository.findById(id)
                 .map(Categoria::getImagen);
     }
+
+    public Optional<Categoria> actualizarEstadoCategoria(String id, boolean estado) {
+        Optional<Categoria> categoriaOptional = categoriaRepository.findById(id);
+
+        if (categoriaOptional.isPresent()) {
+            Categoria categoria = categoriaOptional.get();
+            categoria.setEstado(estado);
+            return Optional.of(categoriaRepository.save(categoria));
+        }
+
+        return Optional.empty();
+    }
+
 }

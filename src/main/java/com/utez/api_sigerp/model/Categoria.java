@@ -10,7 +10,7 @@ public class Categoria {
     @Id
     private String id;
     private String nombre;
-    private String estado;
+    private Boolean estado;
     private String imagen;
 
     public String getId() {
@@ -29,11 +29,11 @@ public class Categoria {
         this.nombre = nombre;
     }
 
-    public String getEstado() {
+    public Boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Boolean estado) {
         this.estado = estado;
     }
 
