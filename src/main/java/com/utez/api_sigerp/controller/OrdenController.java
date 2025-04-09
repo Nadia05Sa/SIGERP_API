@@ -49,4 +49,15 @@ public class OrdenController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminarOrden(@PathVariable String id) {
+        try {
+            ordenService.eliminarOrden(id);
+            return ResponseEntity.noContent().build(); // 204 No Content
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage()); // 400 Bad Request con mensaje
+        }
+    }
+
 }

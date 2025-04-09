@@ -42,4 +42,20 @@ public class OrdenService {
         return ordenRepository.save(orden);
     }
 
+    public void eliminarOrden(String id) throws Exception {
+        Optional<Orden> ordenOptional = ordenRepository.findById(id);
+
+        if (ordenOptional.isEmpty()) {
+            throw new Exception("Orden no encontrada con id: " + id);
+        }
+
+        Orden orden = ordenOptional.get();
+        if (orden.isEstado()) {
+            throw new Exception("No se puede eliminar una orden que ya está completada.");
+        }
+
+        ordenRepository.deleteById(id);
+    }
+
+
 }
