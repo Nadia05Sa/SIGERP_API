@@ -1,7 +1,9 @@
 package com.utez.api_sigerp.service;
 
+import com.utez.api_sigerp.model.Categoria;
 import com.utez.api_sigerp.model.Mesa;
 import com.utez.api_sigerp.model.Producto;
+import com.utez.api_sigerp.repository.CategoriaRepository;
 import com.utez.api_sigerp.repository.ProductoRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,11 @@ import java.util.Optional;
 @Service
 public class ProductoService {
     private final ProductoRepository productoRepository;
+    private final CategoriaRepository categoriaRepository;
 
-    public ProductoService(ProductoRepository productoRepository) {
+    public ProductoService(ProductoRepository productoRepository, CategoriaRepository categoriaRepository ) {
         this.productoRepository = productoRepository;
+        this.categoriaRepository = categoriaRepository;
     }
 
     // Validar producto (método reutilizable)
@@ -134,5 +138,14 @@ public class ProductoService {
         }
 
         return Optional.empty();
+    }
+
+    public List<Producto> getProductosPorCategoria(String idCategoria) {
+        Optional<Categoria> categoriaOpt = categoriaRepository.findById(idCategoria);
+        if (categoriaOpt.isEmpty()) {
+            throw new IllegalArgumentException("❌ Error: Categoría no encontrada con ID: " + idCategoria);
+        }
+
+        return productoRepository.findByCategoriasContaining(categoriaOpt.get());
     }
 }

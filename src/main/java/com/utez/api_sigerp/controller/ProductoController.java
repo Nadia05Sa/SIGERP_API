@@ -67,4 +67,14 @@ public class ProductoController {
         Producto productoUpdated = productoService.updateProducto(id, producto);
         return productoUpdated == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(productoUpdated);
     }
+
+    @GetMapping("/categoria/{idCategoria}")
+    public ResponseEntity<List<Producto>> getProductosPorCategoria(@PathVariable String idCategoria) {
+        try {
+            List<Producto> productos = productoService.getProductosPorCategoria(idCategoria);
+            return productos.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(productos);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 }
