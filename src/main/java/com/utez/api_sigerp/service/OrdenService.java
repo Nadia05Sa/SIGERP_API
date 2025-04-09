@@ -31,4 +31,15 @@ public class OrdenService {
     }
 
 
+    public Orden actualizarEstado(String id, boolean nuevoEstado) throws Exception {
+        Optional<Orden> ordenOptional = ordenRepository.findById(id);
+        if (ordenOptional.isEmpty()) {
+            throw new Exception("Orden no encontrada con id: " + id);
+        }
+
+        Orden orden = ordenOptional.get();
+        orden.setEstado(nuevoEstado);
+        return ordenRepository.save(orden);
+    }
+
 }

@@ -15,7 +15,7 @@ public class Orden {
     private String id;
 
     private LocalDateTime fecha;
-    private String estado;
+    private boolean estado;
     private String comentario;
 
     @DBRef
@@ -40,11 +40,11 @@ public class Orden {
         this.fecha = fecha;
     }
 
-    public String getEstado() {
+    public boolean isEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

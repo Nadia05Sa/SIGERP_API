@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/ordenes")
@@ -31,5 +32,21 @@ public class OrdenController {
         return ordenService.obtenerPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{id}/estado")
+    public ResponseEntity<?> actualizarEstado(@PathVariable String id, @RequestBody Map<String, Object> body) {
+        try {
+            if (!body.containsKey("estado")) {
+                return ResponseEntity.badRequest().body("El campo 'estado' es requerido.");
+            }
+
+            boolean nuevoEstado = Boolean.parseBoolean(body.get("estado").toString());
+
+            Orden ordenActualizada = ordenService.actualizarEstado(id, nuevoEstado);
+            return ResponseEntity.ok(ordenActualizada);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
