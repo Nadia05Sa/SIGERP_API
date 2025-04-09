@@ -42,14 +42,15 @@ public class EmpleadoController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/{nombre}")
-    public ResponseEntity<Empleado> getEmpleadoByNombre(@PathVariable String nombre) {
-        return empleadoService.getEmpleadoByNombre(nombre)
+    @GetMapping("/{id}/mesas")
+    public ResponseEntity<List<Mesa>> getMesasByEmpleadoId(@PathVariable String id) {
+        return empleadoService.getMesasByEmpleadoId(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/login")
+
+    @PostMapping("/login/{id}")
     public ResponseEntity<Empleado> login(@RequestBody Empleado empleado) {
         return empleadoService.authenticate(empleado.getCorreo(), empleado.getContrasena())
                 .map(ResponseEntity::ok)

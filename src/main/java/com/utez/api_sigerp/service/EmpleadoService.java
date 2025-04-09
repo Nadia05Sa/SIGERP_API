@@ -28,9 +28,11 @@ public class EmpleadoService {
         return empleadoRepository.findById(id);
     }
 
-    public Optional<Empleado> getEmpleadoByNombre(String nombre) {
-        return empleadoRepository.findByNombreIgnoreCase(nombre);
+    public Optional<List<Mesa>> getMesasByEmpleadoId(String id) {
+        return empleadoRepository.findById(id)
+                .map(Empleado::getMesas);
     }
+
 
     public Optional<Empleado> authenticate(String correo, String contrasena) {
         return empleadoRepository.findByCorreoAndContrasena(correo, contrasena);
