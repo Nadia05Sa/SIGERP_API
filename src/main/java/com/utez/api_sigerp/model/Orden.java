@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -12,16 +13,16 @@ import java.util.List;
 public class Orden {
     @Id
     private String id;
-    private String fecha;
+
+    private LocalDateTime fecha;
     private String estado;
     private String comentario;
-    private String cantidad;
 
     @DBRef
     private Mesa mesa;
 
-    @DBRef
-    private List<Producto> productos;
+    private List<DetalleOrden> detalles; // productos + cantidades
+
 
     public String getId() {
         return id;
@@ -31,11 +32,11 @@ public class Orden {
         this.id = id;
     }
 
-    public String getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
@@ -47,14 +48,6 @@ public class Orden {
         this.estado = estado;
     }
 
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
-    }
-
     public Mesa getMesa() {
         return mesa;
     }
@@ -63,11 +56,19 @@ public class Orden {
         this.mesa = mesa;
     }
 
-    public List<Producto> getProductos() {
-        return productos;
+    public String getComentario() {
+        return comentario;
     }
 
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public List<DetalleOrden> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetalleOrden> detalles) {
+        this.detalles = detalles;
     }
 }
