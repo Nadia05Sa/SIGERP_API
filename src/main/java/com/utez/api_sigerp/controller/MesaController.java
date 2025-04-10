@@ -67,7 +67,7 @@ public class MesaController {
         return mesaService.getMesaById(id)
                 .map(mesa -> {
                     if (mesa.getOrden() != null) {
-                        return ResponseEntity.ok(mesa.getOrdenVinculada());
+                        return ResponseEntity.ok(mesa.getOrden());
                     } else {
                         return ResponseEntity.status(404)
                                 .body("La mesa no tiene una orden vinculada.");
@@ -76,5 +76,6 @@ public class MesaController {
                 .orElseGet(() -> ResponseEntity.status(404)
                         .body("No se encontró la mesa con ID: " + id));
     }
+
 
 }
