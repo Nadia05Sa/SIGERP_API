@@ -16,7 +16,6 @@ public class Orden {
 
     private LocalDateTime fecha;
     private boolean estado;
-    private String comentario;
 
     @DBRef
     private Mesa mesa;
@@ -56,13 +55,7 @@ public class Orden {
         this.mesa = mesa;
     }
 
-    public String getComentario() {
-        return comentario;
-    }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
-    }
 
     public List<DetalleOrden> getDetalles() {
         return detalles;
