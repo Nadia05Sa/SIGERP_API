@@ -64,9 +64,7 @@ public class OrdenService {
                 orden.setFecha(nuevaData.getFecha());
             }
             orden.setEstado(nuevaData.isEstado()); // Si quieres que siempre se actualice
-            if (nuevaData.getComentario() != null) {
-                orden.setComentario(nuevaData.getComentario());
-            }
+
             if (nuevaData.getMesa() != null) {
                 orden.setMesa(nuevaData.getMesa());
             }
