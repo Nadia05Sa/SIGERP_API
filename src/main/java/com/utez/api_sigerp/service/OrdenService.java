@@ -31,16 +31,18 @@ public class OrdenService {
     }
 
 
-    public Orden actualizarEstado(String id, boolean nuevoEstado) throws Exception {
+    public Orden actualizarEstado(String id) throws Exception {
         Optional<Orden> ordenOptional = ordenRepository.findById(id);
         if (ordenOptional.isEmpty()) {
             throw new Exception("Orden no encontrada con id: " + id);
         }
 
         Orden orden = ordenOptional.get();
-        orden.setEstado(nuevoEstado);
+        orden.setEstado(false);
+
         return ordenRepository.save(orden);
     }
+
 
     public void eliminarOrden(String id) throws Exception {
         Optional<Orden> ordenOptional = ordenRepository.findById(id);
