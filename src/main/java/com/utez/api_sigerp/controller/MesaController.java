@@ -76,6 +76,4 @@ public class MesaController {
                 .orElseGet(() -> ResponseEntity.status(404)
                         .body("No se encontró la mesa con ID: " + id));
     }
-
-
 }

@@ -60,4 +60,13 @@ public class OrdenController {
         }
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<Orden> actualizarOrden(
+            @PathVariable String id,
+            @RequestBody Orden ordenActualizada) {
+
+        Orden orden = ordenService.actualizarOrden(id, ordenActualizada);
+        return ResponseEntity.ok(orden);
+    }
+
 }

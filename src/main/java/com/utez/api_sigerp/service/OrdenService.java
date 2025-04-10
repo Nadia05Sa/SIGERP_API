@@ -58,4 +58,23 @@ public class OrdenService {
     }
 
 
+    public Orden actualizarOrden(String id, Orden nuevaData) {
+        return ordenRepository.findById(id).map(orden -> {
+            if (nuevaData.getFecha() != null) {
+                orden.setFecha(nuevaData.getFecha());
+            }
+            orden.setEstado(nuevaData.isEstado()); // Si quieres que siempre se actualice
+            if (nuevaData.getComentario() != null) {
+                orden.setComentario(nuevaData.getComentario());
+            }
+            if (nuevaData.getMesa() != null) {
+                orden.setMesa(nuevaData.getMesa());
+            }
+            if (nuevaData.getDetalles() != null) {
+                orden.setDetalles(nuevaData.getDetalles());
+            }
+            return ordenRepository.save(orden);
+        }).orElseThrow(() -> new RuntimeException("Orden no encontrada con id: " + id));
+    }
+
 }

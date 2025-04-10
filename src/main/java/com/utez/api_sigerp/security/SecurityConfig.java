@@ -45,7 +45,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/empleado", "/api/producto/categoria/{idCategoria}","api/ordenes","/api/empleado/id/{id}","/api/empleado/{id}/mesas", "/api/categoria", "/api/categoria/**", "/api/producto", "/api/producto/**", "/api/mesas", "/api/mesas/{nombre}", "/api/mesas/**", "/api/resena", "/api/resena/empleado/", "/api/ordenes", "/api/ordenes/mesa/{mesaId}").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/empleado/{nombre}", "api/ordenes").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/categoria", "/api/resena", "/api/ordenes", "/api/ordenes/{id}", "/api/ventas/nueva").permitAll()
-                        .requestMatchers(HttpMethod.PATCH, "/api/mesas/**","/api/producto/{id}", "/api/categoria/{id}/estado","/api/producto/{id}").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/api/mesas/**", "/api/ordenes/{id}","/api/producto/{id}", "/api/categoria/{id}/estado","/api/producto/{id}").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/ordenes{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/mesas/**", "/api/ventas/todas", "/api/mesas/{id}/orden").permitAll()
                         .anyRequest().authenticated()
