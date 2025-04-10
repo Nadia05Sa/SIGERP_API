@@ -1,7 +1,9 @@
 package com.utez.api_sigerp.controller;
 
 import com.utez.api_sigerp.model.Mesa;
+import com.utez.api_sigerp.model.Orden;
 import com.utez.api_sigerp.service.MesaService;
+import com.utez.api_sigerp.service.OrdenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,10 +15,13 @@ import java.util.Map;
 @RequestMapping("/api/mesas")
 public class MesaController {
     private final MesaService mesaService;
+    private final OrdenService ordenService;
 
-    public MesaController(MesaService mesaService) {
+    public MesaController(MesaService mesaService, OrdenService ordenService) {
         this.mesaService = mesaService;
+        this.ordenService = ordenService;
     }
+
 
     @PostMapping
     public ResponseEntity<Mesa> saveMesa(@RequestBody Mesa mesa) {
@@ -75,6 +80,36 @@ public class MesaController {
                 })
                 .orElseGet(() -> ResponseEntity.status(404)
                         .body("No se encontró la mesa con ID: " + id));
+    }
+
+    @PatchMapping("/{id}/vincularOrden/{idO}")
+    public ResponseEntity<Mesa> vincularOrdenAMesa(@PathVariable String id, @PathVariable String idO) {
+        // Verificamos si la mesa existe
+        Optional<Mesa> mesaOpt = mesaService.getMesaById(id);
+        if (!mesaOpt.isPresent()) {
+            return ResponseEntity.status(404).body(null);  // Mesa no encontrada
+        }
+
+        // Verificamos si la orden existe
+        Optional<Orden> ordenOpt = ordenService.obtenerPorId(idO);
+        if (!ordenOpt.isPresent()) {
+            return ResponseEntity.status(404).body(null);  // Mesa no encontrada
+        }
+
+        // Recuperamos la orden
+        Orden nuevaOrden = ordenOpt.get();
+
+        // Recuperamos la mesa
+        Mesa mesa = mesaOpt.get();
+
+        // Vinculamos la orden a la mesa
+        mesa.setOrden(nuevaOrden);
+
+        // Guardamos la mesa actualizada
+        Mesa mesaActualizada = mesaService.save(mesa);
+
+        // Respondemos con la mesa actualizada
+        return ResponseEntity.ok(mesaActualizada);
     }
 
 }

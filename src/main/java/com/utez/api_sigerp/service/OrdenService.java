@@ -65,9 +65,6 @@ public class OrdenService {
             }
             orden.setEstado(nuevaData.isEstado()); // Si quieres que siempre se actualice
 
-            if (nuevaData.getMesa() != null) {
-                orden.setMesa(nuevaData.getMesa());
-            }
             if (nuevaData.getDetalles() != null) {
                 orden.setDetalles(nuevaData.getDetalles());
             }

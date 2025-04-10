@@ -17,13 +17,6 @@ public class MesaService {
 
     // Método para guardar la mesa con validación de nombre duplicado
     public Mesa save(Mesa mesa) {
-        // Verificar si ya existe una mesa con el mismo nombre (ignorando mayúsculas/minúsculas)
-        Optional<Mesa> mesaExistente = mesaRepository.findByNombreIgnoreCase(mesa.getNombre());
-
-        if (mesaExistente.isPresent()) {
-            // Si ya existe, lanzar una excepción o devolver un error
-            throw new IllegalArgumentException("Ya existe una mesa con el nombre: " + mesa.getNombre());
-        }
 
         return mesaRepository.save(mesa);
     }
@@ -61,6 +54,7 @@ public class MesaService {
         Optional<Mesa> mesaExistente = mesaRepository.findById(id);
         if (mesaExistente.isPresent()) {
             Mesa mesa = mesaExistente.get();
+            mesa.setOrden(nuevaMesa.getOrden());
             mesa.setCapacidad(nuevaMesa.getCapacidad());
             mesa.setEstado(nuevaMesa.isEstado());
             mesa.setImagen(nuevaMesa.getImagen());

@@ -17,11 +17,7 @@ public class Orden {
     private LocalDateTime fecha;
     private boolean estado;
 
-    @DBRef
-    private Mesa mesa;
-
     private List<DetalleOrden> detalles; // productos + cantidades
-
 
     public String getId() {
         return id;
@@ -46,16 +42,6 @@ public class Orden {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-
-    public Mesa getMesa() {
-        return mesa;
-    }
-
-    public void setMesa(Mesa mesa) {
-        this.mesa = mesa;
-    }
-
-
 
     public List<DetalleOrden> getDetalles() {
         return detalles;
