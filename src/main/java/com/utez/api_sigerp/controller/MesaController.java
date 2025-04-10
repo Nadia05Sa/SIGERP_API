@@ -70,10 +70,11 @@ public class MesaController {
                         return ResponseEntity.ok(mesa.getOrden());
                     } else {
                         return ResponseEntity.status(404)
-                                .body("La mesa no tiene una orden vinculada.");
+                                .body("No hay una orden creada aún para esta mesa.");
                     }
                 })
                 .orElseGet(() -> ResponseEntity.status(404)
                         .body("No se encontró la mesa con ID: " + id));
     }
+
 }
