@@ -65,4 +65,19 @@ public class MesaService {
     }
 
 
+    public Optional<?> getOrdenVinculada(String idMesa) {
+        Optional<Mesa> mesaOpt = mesaRepository.findById(idMesa);
+
+        if (mesaOpt.isPresent()) {
+            Mesa mesa = mesaOpt.get();
+            if (mesa.getOrden() != null) {
+                return Optional.of(mesa.getOrdenVinculada());
+            } else {
+                return Optional.empty(); // No tiene orden
+            }
+        } else {
+            return Optional.empty(); // Mesa no existe
+        }
+    }
+
 }

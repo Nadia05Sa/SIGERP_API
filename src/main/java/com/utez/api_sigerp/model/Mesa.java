@@ -2,6 +2,7 @@ package com.utez.api_sigerp.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
@@ -13,6 +14,16 @@ public class Mesa {
     private Integer capacidad;
     private String imagen;
     private boolean estado;
+    @DBRef
+    private Orden orden;
+
+    public Orden getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Orden orden) {
+        this.orden = orden;
+    }
 
     public String getId() {
         return id;
@@ -53,4 +64,9 @@ public class Mesa {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    public Orden getOrdenVinculada() {
+        return this.orden;
+    }
+
 }

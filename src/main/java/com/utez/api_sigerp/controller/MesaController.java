@@ -61,4 +61,20 @@ public class MesaController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+
+    @GetMapping("/{id}/orden")
+    public ResponseEntity<?> getOrdenVinculada(@PathVariable String id) {
+        return mesaService.getMesaById(id)
+                .map(mesa -> {
+                    if (mesa.getOrden() != null) {
+                        return ResponseEntity.ok(mesa.getOrdenVinculada());
+                    } else {
+                        return ResponseEntity.status(404)
+                                .body("La mesa no tiene una orden vinculada.");
+                    }
+                })
+                .orElseGet(() -> ResponseEntity.status(404)
+                        .body("No se encontró la mesa con ID: " + id));
+    }
+
 }
