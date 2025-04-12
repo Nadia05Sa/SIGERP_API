@@ -4,6 +4,7 @@ import com.utez.api_sigerp.model.Orden;
 import com.utez.api_sigerp.service.OrdenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,14 +45,15 @@ public class OrdenController {
         }
     }
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarOrden(@PathVariable String id) {
         try {
             ordenService.eliminarOrden(id);
-            return ResponseEntity.noContent().build(); // 204 No Content
+            return ResponseEntity.noContent().build(); // 204
+        } catch (AccessDeniedException ade) {
+            return ResponseEntity.status(403).body("No tienes permiso para eliminar esta orden.");
         } catch (Exception e) {
-            return ResponseEntity.status(400).body(e.getMessage()); // 400 Bad Request con mensaje
+            return ResponseEntity.status(400).body(e.getMessage());
         }
     }
 

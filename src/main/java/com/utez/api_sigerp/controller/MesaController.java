@@ -27,6 +27,7 @@ public class MesaController {
     public ResponseEntity<Mesa> saveMesa(@RequestBody Mesa mesa) {
         Mesa newMesa = mesaService.save(mesa);
         return ResponseEntity.ok(newMesa);
+        
     }
 
     @GetMapping
@@ -74,8 +75,9 @@ public class MesaController {
                     if (mesa.getOrden() != null) {
                         return ResponseEntity.ok(mesa.getOrden());
                     } else {
-                        return ResponseEntity.status(404)
-                                .body("No hay una orden creada aún para esta mesa.");
+                        return ResponseEntity.ok(
+                                "La mesa con ID: " + id + " no tiene una orden vinculada."
+                        );
                     }
                 })
                 .orElseGet(() -> ResponseEntity.status(404)

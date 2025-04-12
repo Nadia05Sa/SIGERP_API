@@ -52,7 +52,7 @@ public class OrdenService {
         }
 
         Orden orden = ordenOptional.get();
-        if (orden.isEstado()) {
+        if (!orden.isEstado()) {
             throw new Exception("No se puede eliminar una orden que ya está completada.");
         }
 
