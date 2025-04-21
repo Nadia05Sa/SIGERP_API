@@ -1,0 +1,1 @@
+web: java -jar API_SIGERP-0.0.1-SNAPSHOT.jar
